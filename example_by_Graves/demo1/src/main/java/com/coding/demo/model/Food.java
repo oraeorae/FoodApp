@@ -1,5 +1,8 @@
 package com.coding.demo.model;
 
+import lombok.Data;
+
+@Data
 public class Food {
     int foodID;//标识主键
     String name;//菜名
@@ -7,4 +10,5 @@ public class Food {
     String foodIntroduction;//食物介绍
     String species;//菜品种类
     int price;//价格
+    String pictureUrl;
 }

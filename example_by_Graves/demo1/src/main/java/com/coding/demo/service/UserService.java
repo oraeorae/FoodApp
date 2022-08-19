@@ -34,4 +34,11 @@ public interface UserService {
      * @return int
      */
     int updatePassword(String name,String password);
+
+    /**
+     * 登录验证
+     * @param name
+     * @return
+     */
+    String findPassword(String name);
 }
