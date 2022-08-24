@@ -3,6 +3,7 @@ package com.coding.demo.service;
 import com.coding.demo.mapper.SellerMapper;
 import com.coding.demo.model.JsonResult;
 import com.coding.demo.model.Seller;
+import com.coding.demo.utils.SensitiveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,12 @@ public class SellerServiceImpl implements SellerService{
     @Autowired
     private SellerMapper sellerMapper;
     private RedisTemplate redisTemplate;
+    private SensitiveUtils sensitiveUtils;
 
     @Override
     public int insertSeller(String name, String IdCard, String introduction, String location) {
-        return sellerMapper.saveSeller(name, IdCard, introduction, location);
+        //2022.8.24 新增或修改部分   by:Orall
+        return sellerMapper.saveSeller(sensitiveUtils.filter(name), IdCard, sensitiveUtils.filter(introduction), location);
     }
 
     @Override

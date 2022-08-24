@@ -3,6 +3,7 @@ package com.coding.demo.service;
 import com.coding.demo.mapper.FoodMapper;
 import com.coding.demo.model.Food;
 import com.coding.demo.model.Seller;
+import com.coding.demo.utils.SensitiveUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -15,10 +16,12 @@ public class FoodServiceImpl implements FoodService{
     @Autowired
     private FoodMapper foodMapper;
     private RedisTemplate redisTemplate;
+    private SensitiveUtils sensitiveUtils;
 
     @Override
     public int InsertFood(String name, String sellerID, String foodIntroduction, String species, String price) {
-        return foodMapper.saveFood(name, sellerID, foodIntroduction, species, price);
+        //2022.8.24 新增或修改部分   by:Orall
+        return foodMapper.saveFood(sensitiveUtils.filter(name), sellerID, sensitiveUtils.filter(foodIntroduction), species, price);
     }
 
     @Override

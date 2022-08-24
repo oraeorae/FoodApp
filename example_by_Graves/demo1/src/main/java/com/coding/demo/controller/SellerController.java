@@ -52,6 +52,7 @@ public class SellerController {
     @PostMapping("/show")
     public JsonResult listSeller(int page){
             try{
+
                 List<Seller> tmp=sellerService.pageSeller(page,8);
                 return new JsonResult("返回成功");
             } catch (Exception e) {

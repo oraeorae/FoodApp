@@ -83,9 +83,10 @@ public class FoodController {
 
     @PostMapping("/show")
     public JsonResult listSeller(int page){
+        //2022.8.24 新增或修改部分   by:Orall
         try{
             List<Food> tmp=foodService.pageFood(page,8);
-            return new JsonResult("返回成功");
+            return new JsonResult(tmp);
         } catch (Exception e) {
             e.printStackTrace();
             return new JsonResult("服务器内部错误","410","错误");

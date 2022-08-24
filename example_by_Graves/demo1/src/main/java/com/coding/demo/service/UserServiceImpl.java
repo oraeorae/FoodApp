@@ -10,7 +10,10 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper userMapper;
     @Override
-    public User selectUser(String id){return userMapper.selectUser(id);}
+    public User selectUserById(String id){return userMapper.selectUserById(id);}
+
+    @Override
+    public User selectUserByName(String name){return userMapper.selectUserByName(name);}
 
     @Override
     public int insertUser(String name,String password) {

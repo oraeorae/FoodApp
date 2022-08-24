@@ -17,7 +17,10 @@ public interface UserMapper {
 
 
     @Select("select * from user where name=#{name}")
-    User selectUser(@Param("name")String name);
+    User selectUserByName(@Param("name")String name);
+
+    @Select("select * from user where id=#{id}")
+    User selectUserById(@Param("id")String id);
 
     @Update("UPDATE user set email=#{email},phone=#{phone} WHERE name =#{name}")
     int updateUser(@Param("name")String name,@Param("email")String email,@Param("phone")String phone);

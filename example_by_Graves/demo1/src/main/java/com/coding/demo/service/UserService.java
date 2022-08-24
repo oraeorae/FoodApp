@@ -8,7 +8,14 @@ public interface UserService {
      * @param id
      * @return user
      */
-    User selectUser(String id);
+    User selectUserById(String id);
+
+    /**
+     * 根据学生name查询用户
+     * @param name
+     * @return user
+     */
+    User selectUserByName(String name);
 
     /**
      * 给学生姓名和密码，插入新用户

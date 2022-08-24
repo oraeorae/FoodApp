@@ -3,6 +3,7 @@ package com.coding.demo.controller;
 import com.coding.demo.model.JsonResult;
 import com.coding.demo.model.User;
 import com.coding.demo.service.UserServiceImpl;
+import com.coding.demo.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 @Slf4j
@@ -34,12 +37,22 @@ public class UserController {
         try{
             if(StringUtils.isEmpty(name)) return new JsonResult("用户名不能为空","410","fail");
             if(StringUtils.isEmpty(password)) return new JsonResult("密码不能为空","410","fail");
-            User user=userService.selectUser(name);
+            User user=userService.selectUserByName(name);
             if(user ==null){
                 return new JsonResult("登录失败，不存在该用户","410","fail");
             }
-            if(password==userService.findPassword(name))
-                return new JsonResult("登录成功");
+            //2022.8.24 新增或修改部分   by:Orall
+            if(password.equals(user.getPassword())){
+                //生成token
+                JwtUtils jwt = JwtUtils.getInstance();
+                String token = jwt
+                        .setClaim("name",name)
+                        .setClaim("id",user.getId())
+                        .generateToken();
+                Map<String,String> tmp = new HashMap<>();
+                tmp.put("token",token);
+                return new JsonResult(tmp);
+            }
             else return new JsonResult("登录失败，密码错误","410","fail");
 
         }
@@ -58,7 +71,7 @@ public class UserController {
             if(StringUtils.isEmpty(name)) return new JsonResult("用户名不能为空","410","fail");
             if(StringUtils.isEmpty(password)) return new JsonResult("密码不能为空","410","fail");
             if(!password.equals(confirm)){return new JsonResult("两次密码不同","410","fail");}
-            User user=userService.selectUser(name);
+            User user=userService.selectUserByName(name);
             if(user !=null){
                 return new JsonResult("注册失败，该用户已经存在","410","fail");
             }
@@ -82,7 +95,7 @@ public class UserController {
             if(StringUtils.isEmpty(name)) return new JsonResult("用户名不能为空","410","fail");
             if(StringUtils.isEmpty(email)) return new JsonResult("邮箱不能为空","410","fail");
             if(StringUtils.isEmpty(phone)) return new JsonResult("电话不能为空","410","fail");
-            User user=userService.selectUser(name);
+            User user=userService.selectUserByName(name);
             if(user ==null){
                 return new JsonResult("更新失败，该用户不存在","410","fail");
             }
@@ -141,7 +154,7 @@ public class UserController {
             if(StringUtils.isEmpty(name)) return new JsonResult("用户名不能为空","410","fail");
             if(StringUtils.isEmpty(password)) return new JsonResult("密码不能为空","410","fail");
             if(!password.equals(confirm)){return new JsonResult("两次密码不同","410","fail");}
-            User user=userService.selectUser(name);
+            User user=userService.selectUserByName(name);
             if(user ==null){
                 return new JsonResult("修改失败，该用户不存在","410","fail");
             }
