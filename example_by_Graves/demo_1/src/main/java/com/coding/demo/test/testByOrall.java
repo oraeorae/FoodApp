@@ -1,6 +1,7 @@
 package com.coding.demo.test;
 
 import com.coding.demo.annotations.Limit;
+import com.coding.demo.service.RecommendService;
 import com.coding.demo.utils.SensitiveUtils;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.junit.Test;
@@ -29,6 +30,26 @@ public class testByOrall {
         System.out.println(text);
         return;
     }
+
+    @Autowired
+    private RecommendService recommendService;
+
+    /**
+     * 测试更新或者插入用户数据
+     * 收藏和浏览都应该执行这个
+     */
+    @Test
+    public void testUpdate(){
+        int userid = 6;
+        int businessid = 10;
+        //判断当前有没有该用户的商店数据
+        if( recommendService.isUserActive(userid,businessid) == 0 ){        //没有数据则插入
+            recommendService.insertUserActive(userid,businessid);
+        }else{          //已经存在则更新
+            recommendService.updateUserActive(userid,businessid);
+        }
+    }
+
 
     /**
      *

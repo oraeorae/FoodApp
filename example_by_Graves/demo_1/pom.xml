@@ -113,10 +113,12 @@
             <artifactId>junit</artifactId>
         </dependency>
         <!--spring security 启动器-->
+        <!--
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        -->
         <!-- 接口限流 -->
         <dependency>
             <groupId>com.google.guava</groupId>

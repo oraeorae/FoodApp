@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author czh
+ * @author orall
  */
+/*
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Override
@@ -44,3 +45,4 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     }
 }
+*/

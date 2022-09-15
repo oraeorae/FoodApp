@@ -1,5 +1,6 @@
 package com.coding.demo.controller;
 
+import com.coding.demo.annotations.Limit;
 import com.coding.demo.model.JsonResult;
 import com.coding.demo.model.User;
 import com.coding.demo.service.UserServiceImpl;
@@ -109,6 +110,7 @@ public class UserController {
         return new JsonResult("信息补充失败","410","fail");
     }
 
+    @Limit(key = "test", permitsPerSecond = 1, timeout = 500, msg = "请求过于频繁,请稍后再试！")
     @GetMapping("/test")
     public String test1(){
         return "测试成功";

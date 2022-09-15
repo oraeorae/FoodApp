@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/*
 @Configuration//定义此类为配置类
 public class InterceptorConfig implements WebMvcConfigurer {
 
@@ -21,3 +22,4 @@ public class InterceptorConfig implements WebMvcConfigurer {
         WebMvcConfigurer.super.addInterceptors(registry);
     }
 }
+*/

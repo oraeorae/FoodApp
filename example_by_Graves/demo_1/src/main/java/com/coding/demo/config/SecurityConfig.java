@@ -1,5 +1,5 @@
 package com.coding.demo.config;
-
+/*
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 //对于登录接口允许匿名访问：即未认证也可以访问
                 .antMatchers("/user/login").anonymous()
+                .antMatchers("/user/register").anonymous()
+                .antMatchers("/user/test").anonymous()
                 //除了以上的页面，全部都需要认证
                 .anyRequest().authenticated();
     }
@@ -36,3 +38,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 }
+*/

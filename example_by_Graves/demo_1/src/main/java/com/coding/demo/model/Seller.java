@@ -1,6 +1,5 @@
 package com.coding.demo.model;
 
-import javafx.util.Pair;
 import lombok.Data;
 
 import java.util.Map;

@@ -18,9 +18,10 @@ public class FoodServiceImpl implements FoodService{
     private RedisTemplate redisTemplate;
     private SensitiveUtils sensitiveUtils;
 
+
     @Override
     public int InsertFood(String name, String sellerID, String foodIntroduction, String species, String price) {
-        //2022.8.24 新增或修改部分   by:Orall
+        //2022.8.24 新增或修改部分   by:Orall（功能：敏感词过滤）
         return foodMapper.saveFood(sensitiveUtils.filter(name), sellerID, sensitiveUtils.filter(foodIntroduction), species, price);
     }
 

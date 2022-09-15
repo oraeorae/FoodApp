@@ -4,6 +4,7 @@ import com.coding.demo.model.Food;
 import com.coding.demo.model.JsonResult;
 import com.coding.demo.model.Seller;
 import com.coding.demo.service.FoodServiceImpl;
+import com.coding.demo.service.RecommendService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ import java.util.List;
 public class FoodController {
     @Autowired
     private FoodServiceImpl foodService;
+    @Autowired
+    private RecommendService recommendService;
 
     @RequestMapping("/register")
     public JsonResult registerFood(String  name, String sellerID, String foodIntroduction, String species, String price){
@@ -85,6 +88,15 @@ public class FoodController {
     public JsonResult listSeller(int page,int sellerID){
         //2022.8.24 新增或修改部分   by:Orall
         try{
+            //2022.9.15 新增或修改部分   by:Orall（功能：协同过滤推荐算法中记录点击数据）
+            int userId = 1;
+            //判断当前有没有该用户的商店数据
+            if( recommendService.isUserActive(userId,sellerID) == 0 ){        //没有数据则插入
+                recommendService.insertUserActive(userId,sellerID);
+            }else{          //已经存在则更新
+                recommendService.updateUserActive(userId,sellerID);
+            }
+
             List<Food> tmp=foodService.pageFood(page,8,sellerID);
 
             return new JsonResult(tmp);
